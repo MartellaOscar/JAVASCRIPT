@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <h1>Tabella Dinamica</h1>
+    
+    <style>
+        .table {
+            position: absolute; 
+            top: 40px;
+            right: 600px;       
+            border-collapse: collapse; 
+            border: 3px solid rgb(0, 162, 211); 
+        }
+    
+        .table th, .table td {
+            border: 2px solid rgb(0, 0, 0);
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <p><input type="text" id="nome" placeholder="nome..."></p>
+    <p><input type="text" id="cognome" placeholder="cognome..."></p>
+    <p><input type="text" id="classe" placeholder="classe..."></p>
+    <p><input type="text" id="scuola" placeholder="scuola..."></p>
+    <button type="button" id="button" Onclick="onClick()" >AGGIUNGI</button>
+   <table id="demo" class =table >
+           <tr>
+            <th>NOME</th>
+            <th>COGNOME</th>
+            <th>CLASSE</th>
+            <th>SCUOLA</th>
+           </tr>
+    </table>
+
+    <script>
+        let array = ["","","",""];
+        function onClick(){
+            let nome =document.getElementById('nome').value;
+            let cognome =document.getElementById('cognome').value;
+            let classe =document.getElementById('classe').value;
+            let scuola =document.getElementById('scuola').value;
+            let array=[nome, cognome, classe, scuola];
+            document.getElementById('demo').innerHTML+="<tr><td>" +array[0]+ "</td>"+"<td>" +array[1]+ "</td>"+"<td>" +array[2]+ "</td>"+"<td>" +array[3]+ "</td></tr>"
+            
+            document.getElementById('nome').value = '';
+            document.getElementById('cognome').value = '';
+            document.getElementById('classe').value = '';
+            document.getElementById('scuola').value = '';
+
+        }
+    </script>
+</body>
+</html>

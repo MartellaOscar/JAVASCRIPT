@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversioni</title>
+    <h1>Conversioni</h1>
+</head>
+<body>
+    <p><input type="text" id="numero" placeholder="numero..."></p>
+    <p><input type="text" id="binario" placeholder="binario..."></p>
+    <p><input type="text" id="ottale" placeholder="ottale..."></p>
+    <p><input type="text" id="esadecimale" placeholder="esadecimale..."></p>
+    <button type="button" id="buttonBin" onclick="Binario()">Trasforma il decimale in binario</button>
+    <button type="button" id="buttonOtt" onclick="Ottale()">Trasforma il decimale in ottale</button>
+    <button type="button" id="buttonEsa" onclick="Esadecimale()">Trasforma il decimale in esadecimale</button>
+</body>
+
+<script>
+    function Binario() {
+        let num = parseInt(document.getElementById('numero').value); 
+
+        let bin = [];
+        while (num > 0) {
+            bin.push(num % 2); 
+            num = Math.floor(num / 2); 
+        }
+
+        document.getElementById('binario').value = bin.reverse().join(""); 
+    }
+
+    function Ottale() {
+        let num = parseInt(document.getElementById('numero').value); 
+        let ott = [];
+        while (num > 0) {
+            ott.push(num % 8); 
+            num = Math.floor(num / 8); 
+        }
+
+        document.getElementById('ottale').value = ott.reverse().join(""); 
+    }
+
+    /*function Esadecimale() {
+        let num = parseInt(document.getElementById('numero').value); 
+        let esa = [];
+        while (num > 0) {
+            switch(num%16){
+                case()
+            }
+            num = Math.floor(num / 16); 
+        }
+
+        document.getElementById('esadecimale').value = esa.reverse().join(""); 
+       
+    }*/
+</script>
+</html>
