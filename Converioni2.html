@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversioni</title>
+    <h1>Conversioni</h1>
+</head>
+
+<style>
+    .table {
+        position: absolute;
+        top: 40px;
+        right: 600px;
+        border-collapse: collapse;
+        border: 3px solid rgb(0, 162, 211);
+    }
+
+    .table th,
+    .table td {
+        border: 2px solid rgb(0, 0, 0);
+        padding: 10px;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <p><input type="text" id="numero" placeholder="numero..."></p>
+    <button type="button" id="buttonEsa" onclick="Decimale()">DECIMALE</button>
+    <button type="button" id="buttonBin" onclick="Binario()">BINARIO</button>
+    <button type="button" id="buttonOtt" onclick="Ottale()">OTTALE</button>
+    <button type="button" id="buttonEsa" onclick="Esadecimale()">ESADECIMALE</button>
+</body>
+<table id="demo" class="table" witdh="700PX">
+    <tr>
+        <th>DECIMALE</th>
+        <th>BINARIO</th>
+        <th>OTTALE</th>
+        <th>ESADECIMALE</th>
+    </tr>
+</table>
+
+<script>
+    let array = ["", "", "", ""];
+
+    function Decimale() {
+        let num = document.getElementById('numero').value;
+
+        if (num[0] === '-') {
+            alert("numero non valido");
+            return;
+        }
+
+        num = parseInt(num);
+        let num1 = num;
+        let num2 = num;
+        let num3 = num;
+
+        let bin = [];
+        let ott = [];
+        let esa = [];
+
+        //dec-bin
+        while (num > 0) {
+            bin.push(num % 2);
+            num = Math.floor(num / 2);
+        }
+        //dec-ott
+        while (num1 > 0) {
+            ott.push(num1 % 8);
+            num1 = Math.floor(num1 / 8);
+        }
+        //dec-esa
+        while (num2 > 0) {
+            let resto = num2 % 16;
+            switch (resto) {
+                case 10:
+                    esa.push("A");
+                    break;
+                case 11:
+                    esa.push("B");
+                    break;
+                case 12:
+                    esa.push("C");
+                    break;
+                case 13:
+                    esa.push("D");
+                    break;
+                case 14:
+                    esa.push("E");
+                    break;
+                case 15:
+                    esa.push("F");
+                    break;
+                default:
+                    esa.push(resto);
+                    break;
+            }
+            num2 = Math.floor(num2 / 16);
+        }
+
+        let array = [num3, bin.reverse().join(""), ott.reverse().join(""), esa.reverse().join("")];
+        document.getElementById('demo').innerHTML += "<tr><td>" + array[0] + "</td>" + "<td>" + array[1] + "</td>" + "<td>" + array[2] + "</td>" + "<td>" + array[3] + "</td></tr>"
+        document.getElementById('numero').value = '';
+    }
+
+
+    function Binario() {
+        let num = (document.getElementById('numero').value);
+
+        //controllo
+        for (let i = 0; i < num.length; i++) {
+            if (num[i] > 1 || num[i] < 0) {
+                alert("numero binario non valido");
+                return;
+            }
+        }
+
+
+        let dec = 0;
+        let ott = []
+        let ott1 = [];
+        let esa = [];
+        let esa1 = [];
+
+        //bin-dec
+        for (let i = 0; i < num.length; i++) {
+            dec += Math.pow(2, num.length - 1 - i) * parseInt(num[i]);
+        }
+
+        //bin-ott
+        while (num.length % 3 !== 0) {
+            num = "0" + num;
+        }
+        for (let i = 0; i < num.length; i++) {
+            ott1.push(parseInt(num[i]));
+            if (ott1.length === 3) {
+                ott.push(ott1[0] * 4 + ott1[1] * 2 + ott1[2]);
+                ott1 = [];
+            }
+
+        }
+
+        //bin-esa
+        while (num.length % 4 !== 0) {
+            num = "0" + num;
+        }
+        for (let i = 0; i < num.length; i++) {
+            esa1.push(parseInt(num[i]));
+            if (esa1.length === 4) {
+                let resto = (esa1[0] * 8 + esa1[1] * 4 + esa1[2] * 2 + esa1[3] * 1);
+                switch (resto) {
+                    case 10:
+                        esa.push("A");
+                        break;
+                    case 11:
+                        esa.push("B");
+                        break;
+                    case 12:
+                        esa.push("C");
+                        break;
+                    case 13:
+                        esa.push("D");
+                        break;
+                    case 14:
+                        esa.push("E");
+                        break;
+                    case 15:
+                        esa.push("F");
+                        break;
+                    default:
+                        esa.push(resto);
+                        break;
+                }
+                esa1 = [];
+
+            }
+
+        }
+
+        let array = [dec, num, ott.join(""), esa.join("")];
+        document.getElementById('demo').innerHTML += "<tr><td>" + array[0] + "</td>" + "<td>" + array[1] + "</td>" + "<td>" + array[2] + "</td>" + "<td>" + array[3] + "</td></tr>"
+        document.getElementById('numero').value = '';
+    }
+    function Ottale() {
+        let num = (document.getElementById('numero').value);
+
+        let dec = 0;
+        let dec1 = 0;
+        let bin = [];
+        let esa = [];
+
+        let potenza = 0;
+
+        //ott-dec
+        for (let i = num.length - 1; i >= 0; i--) {
+            dec += Math.pow(8, potenza) * parseInt(num[i]);
+            potenza++;
+        }
+        potenza = 0;
+
+
+        //ott-bin
+        for (let i = num.length - 1; i >= 0; i--) {
+            let digit = parseInt(num[i]);
+            switch (digit) {
+                case 0:
+                    bin.push("000");
+                case 1:
+                    bin.push("001");
+                    break;
+                case 2:
+                    bin.push("010");
+                    break;
+                case 3:
+                    bin.push("011");
+                    break;
+                case 4:
+                    bin.push("100");
+                    break;
+                case 5:
+                    bin.push("101");
+                    break;
+                case 6:
+                    bin.push("110");
+                    break;
+                case 7:
+                    bin.push("111");
+                    break;
+                default:
+                    alert("numero ottale non valido");
+                    return;
+            }
+
+
+        }
+        //ott-esa
+        for (let i = num.length - 1; i >= 0; i--) {
+            dec1 += Math.pow(8, potenza) * parseInt(num[i]);
+            potenza++;
+        }
+        while (dec1 > 0) {
+            let resto = dec1 % 16;
+            switch (resto) {
+                case 10:
+                    esa.push("A");
+                    break;
+                case 11:
+                    esa.push("B");
+                    break;
+                case 12:
+                    esa.push("C");
+                    break;
+                case 13:
+                    esa.push("D");
+                    break;
+                case 14:
+                    esa.push("E");
+                    break;
+                case 15:
+                    esa.push("F");
+                    break;
+                default:
+                    esa.push(resto);
+                    break;
+            }
+            dec1 = Math.floor(dec1 / 16);
+        }
+
+
+        let array = [dec, bin.reverse().join(""), num, esa.reverse().join("")];
+        document.getElementById('demo').innerHTML += "<tr><td>" + array[0] + "</td>" + "<td>" + array[1] + "</td>" + "<td>" + array[2] + "</td>" + "<td>" + array[3] + "</td></tr>";
+        document.getElementById('numero').value = '';
+    }
+
+
+
+
+    function Esadecimale() {
+        let num = (document.getElementById('numero').value).toUpperCase();
+        let dec = 0;
+        let bin = [];
+        let ott = [];
+
+
+        //controllo
+        for (let i = 0; i < num.length; i++) {
+            if (!((num[i] >= 'A' && num[i] <= 'F') || (num[i] >= '0' && num[i] <= '9'))) {
+                alert("Numero esadecimale non valido");
+                return;
+            }
+        }
+
+
+        //esa-dec
+        for (let i = 0; i < num.length; i++) {
+            switch (num[i]) {
+                case "A":
+                    dec += ((10) * Math.pow(16, i));
+                    break;
+                case "B":
+                    dec += ((11) * Math.pow(16, i));
+                    break;
+                case "C":
+                    dec += ((12) * Math.pow(16, i));
+                    break;
+                case "D":
+                    dec += ((13) * Math.pow(16, i));
+                    break;
+                case "E":
+                    dec += ((14) * Math.pow(16, i));
+                    break;
+                case "F":
+                    dec += ((15) * Math.pow(16, i));
+                    break;
+                default:
+                    dec += (num[i] * Math.pow(16, i));
+                    break;
+            }
+        }
+
+        let dec1 = dec;
+        //esa-bin
+        while (dec1 > 0) {
+            bin.push(dec1 % 2);
+            dec1 = Math.floor(dec1 / 2);
+        }
+
+        let dec2 = dec;
+        //esa-ott
+        while (dec2 > 0) {
+            ott.push(dec2 % 8);
+            dec2 = Math.floor(dec2 / 8);
+        }
+
+
+        let array = [dec, bin.reverse().join(""), ott.reverse().join(""), num];
+        document.getElementById('demo').innerHTML += "<tr><td>" + array[0] + "</td>" + "<td>" + array[1] + "</td>" + "<td>" + array[2] + "</td>" + "<td>" + array[3] + "</td></tr>";
+        document.getElementById('numero').value = '';
+
+
+    }
+</script>
+
+</html>
