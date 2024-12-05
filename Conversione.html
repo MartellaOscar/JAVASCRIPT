@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conversioni</title>
     <h1>Conversioni</h1>
 </head>
+
 <body>
     <p><input type="text" id="numero" placeholder="numero..."></p>
     <p><input type="text" id="binario" placeholder="binario..."></p>
@@ -18,40 +20,63 @@
 
 <script>
     function Binario() {
-        let num = parseInt(document.getElementById('numero').value); 
+        let num = parseInt(document.getElementById('numero').value);
 
         let bin = [];
         while (num > 0) {
-            bin.push(num % 2); 
-            num = Math.floor(num / 2); 
+            bin.push(num % 2);
+            num = Math.floor(num / 2);
         }
 
-        document.getElementById('binario').value = bin.reverse().join(""); 
+        document.getElementById('binario').value = bin.reverse().join("");
     }
 
     function Ottale() {
-        let num = parseInt(document.getElementById('numero').value); 
+        let num = parseInt(document.getElementById('numero').value);
         let ott = [];
         while (num > 0) {
-            ott.push(num % 8); 
-            num = Math.floor(num / 8); 
+            ott.push(num % 8);
+            num = Math.floor(num / 8);
         }
 
-        document.getElementById('ottale').value = ott.reverse().join(""); 
+        document.getElementById('ottale').value = ott.reverse().join("");
     }
 
-    /*function Esadecimale() {
-        let num = parseInt(document.getElementById('numero').value); 
+    function Esadecimale() {
+        let num = parseInt(document.getElementById('numero').value);
         let esa = [];
         while (num > 0) {
-            switch(num%16){
-                case()
+            let resto=num%16;
+            switch (resto) {
+                case 10:
+                    esa.push("A");
+                    break;
+                case 11:
+                    esa.push("B");
+                    break;
+                case 12:
+                    esa.push("C");
+                    break;
+                case 13:
+                    esa.push("D");
+                    break;
+                case 14:
+                    esa.push("E");
+                    break;
+                case 15:
+                    esa.push("F");
+                    break;
+                default:
+                    esa.push(resto);
+                    break;
             }
-            num = Math.floor(num / 16); 
+            num = Math.floor(num / 16);
+
         }
 
-        document.getElementById('esadecimale').value = esa.reverse().join(""); 
-       
-    }*/
+        document.getElementById('esadecimale').value = esa.reverse().join("");
+
+    }
 </script>
+
 </html>
