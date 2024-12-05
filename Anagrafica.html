@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <h1>Tabella Dinamica</h1>
+
+</head>
+
+<body>
+    <p><input type="text" id="nome" placeholder="nome..."></p>
+    <p><input type="text" id="cognome" placeholder="cognome..."></p>
+    <p><input type="text" id="classe" placeholder="classe..."></p>
+    <p><input type="text" id="scuola" placeholder="scuola..."></p>
+    <button type="button" id="button" onclick="onClick()">AGGIUNGI</button>
+
+    <script>
+        function onClick() {
+            let nome = document.getElementById('nome').value;
+            localStorage.setItem('nome', nome);
+
+            let cognome = document.getElementById('cognome').value;
+            localStorage.setItem('cognome', cognome);
+
+            let classe = document.getElementById('classe').value;
+            localStorage.setItem('classe', classe);
+
+            let scuola = document.getElementById('scuola').value;
+            localStorage.setItem('scuola', scuola);
+            
+            alert('Dati salvati!');
+
+            document.getElementById('nome').value = '';
+            document.getElementById('cognome').value = '';
+            document.getElementById('classe').value = '';
+            document.getElementById('scuola').value = '';
+
+            location.href = "C:/Users/User/Desktop/OSCAR/JAVASCRIPT/Anagrafica2.html";
+
+        }
+    </script>
+</body>
+
+</html>
