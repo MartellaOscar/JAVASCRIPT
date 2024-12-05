@@ -38,15 +38,12 @@
 
 
     <script>
-        let nome = localStorage.getItem('nome');
-        let cognome = localStorage.getItem('cognome');
-        let classe = localStorage.getItem('classe');
-        let scuola = localStorage.getItem('scuola');
+        let array = localStorage.getItem('informazioni').split(',');
 
-        let array = [nome, cognome, classe, scuola];
-        document.getElementById('demo').innerHTML += "<tr><td>" + array[0] + "</td>" + "<td>" + array[1] + "</td>" + "<td>" + array[2] + "</td>" + "<td>" + array[3] + "</td></tr>"
+        document.getElementById('demo').innerHTML += "<tr><td>" + array[0] + "</td>" + "<td>" + array[1] + "</td>" + "<td>" + array[2] + "</td>" + "<td>"
+            + array[3] + "</td></tr>"
 
-        function ritorna(){
+        function ritorna() {
             location.href = "Anagrafica.html";
         }
     </script>

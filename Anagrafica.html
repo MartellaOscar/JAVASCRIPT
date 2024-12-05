@@ -17,17 +17,21 @@
 
     <script>
         function onClick() {
+            let array = ["", "", "", ""]
             let nome = document.getElementById('nome').value;
-            localStorage.setItem('nome', nome);
+            array[0] = nome;
 
             let cognome = document.getElementById('cognome').value;
-            localStorage.setItem('cognome', cognome);
+            array[1] = cognome;
 
             let classe = document.getElementById('classe').value;
-            localStorage.setItem('classe', classe);
+            array[2] = classe;
 
             let scuola = document.getElementById('scuola').value;
-            localStorage.setItem('scuola', scuola);
+            array[3] = scuola;
+
+            let arraytot=array;
+            localStorage.setItem('informazioni', arraytot);
 
             alert('Dati salvati!');
 
