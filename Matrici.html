@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrice Quadrata</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 20px;
+        }
+
+        td {
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #000;
+            width: 50px;
+            height: 50px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Matrice Quadrata con Scorrimento</h1>
+
+    <table id="matrice"></table>
+
+    <div>
+        <button onclick="scorriDestra()">Scorri Destra</button>
+        <button onclick="scorriSinistra()">Scorri Sinistra</button>
+    </div>
+
+    <script>
+        const dimensione = 4; // Dimensione della matrice (4x4 per esempio)
+        let matrice = [];
+
+        // Funzione per generare una matrice con numeri casuali
+        function generaMatrice() {
+            matrice = [];
+            for (let i = 0; i < dimensione; i++) {
+                matrice[i] = [];
+                for (let j = 0; j < dimensione; j++) {
+                    matrice[i][j] = Math.floor(Math.random() * 100); // Numeri tra 0 e 99
+                }
+            }
+            mostraMatrice();
+        }
+
+        // Funzione per visualizzare la matrice nella tabella
+        function mostraMatrice() {
+            const tabella = document.getElementById("matrice");
+            tabella.innerHTML = ""; // Pulisce la tabella
+
+            for (let i = 0; i < dimensione; i++) {
+                let row = tabella.insertRow();
+                for (let j = 0; j < dimensione; j++) {
+                    let cell = row.insertCell();
+                    cell.textContent = matrice[i][j];
+                }
+            }
+        }
+
+        // Funzione per scorrere i numeri verso destra
+        function scorriDestra() {
+            for (let i = 0; i < dimensione; i++) {
+                let temp = matrice[i][dimensione - 1];
+                for (let j = dimensione - 1; j > 0; j--) {
+                    matrice[i][j] = matrice[i][j - 1];
+                }
+                matrice[i][0] = temp;
+            }
+            mostraMatrice();
+        }
+
+        // Funzione per scorrere i numeri verso sinistra
+        function scorriSinistra() {
+            for (let i = 0; i < dimensione; i++) {
+                let temp = matrice[i][0];
+                for (let j = 0; j < dimensione - 1; j++) {
+                    matrice[i][j] = matrice[i][j + 1];
+                }
+                matrice[i][dimensione - 1] = temp;
+            }
+            mostraMatrice();
+        }
+
+        // Inizializza la matrice quando la pagina viene caricata
+        generaMatrice();
+    </script>
+</body>
+
+</html>
