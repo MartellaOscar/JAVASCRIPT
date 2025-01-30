@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <h1>Tabella Migranti</h1>
+</head>
+
+<style>
+    .table {
+        position: absolute;
+        top: 40px;
+        right: 600px;
+        border-collapse: collapse;
+        border: 3px solid rgb(0, 162, 211);
+    }
+
+    .table th,
+    .table td {
+        border: 2px solid rgb(0, 0, 0);
+        padding: 10px;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <p><input type="text" id="anno" placeholder="inserire un anno"></p>
+    <p><input type="text" id="sbarchi" placeholder="inserire numero sbarchi nell'anno indicato"></p>
+    <button type="button" id="button" Onclick="onClick()">AGGIUNGI</button>
+
+    <input type="file" onchange="leggiFile(this)">
+
+    <table id="demo" class="table">
+        <tr>
+            <th>ANNO</th>
+            <th>NUMERO SBARCHI</th>
+        </tr>
+    </table>
+</body>
+
+<script>
+    function onClick() {
+        let anno = document.getElementById('anno').value;
+        let numero = document.getElementById('sbarchi').value;
+
+        if (anno < 2016 || anno > 2025 || isNaN(anno))
+            alert("inserire un anno compreso tra il 2016 e tra il 2025");
+        else if (isNaN(numero))
+            alert("inserire un numero e non una stringa");
+        else
+            document.getElementById('demo').innerHTML += "<tr><th>" + anno + "</th>" + "<th>" + numero + "</th></tr>"
+
+        document.getElementById('anno').value = ' ';
+        document.getElementById('sbarchi').value = '';
+    }
+
+
+    function leggiFile(input) {
+            let file = input.files[0];
+            let lettoreF = new FileReader();
+            lettoreF.readAsText(file);
+
+            lettoreF.onload = function () {
+                let contenuto = lettoreF.result;
+                creaTab(contenuto);
+            };
+        }
+</script>
+
+</html>
