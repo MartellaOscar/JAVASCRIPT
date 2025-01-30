@@ -69,12 +69,11 @@
         let colonne1 = []
         for (let i = 0; i < righe.length; i++) {
             colonne[i] = righe[i].split(',')
-        }
-        for (let i = 0; i < colonne.length; i++) {
             for (let j = 0; j < colonne[i].length; j++) {
-                colonne1[2 * i + j] = colonne[i][j].replaceAll('"', '')
+                colonne1.push(colonne[i][j].replaceAll('"', ''));
             }
         }
+        
         for (let i = 0; i < colonne1.length; i++) {
             if (i % 2 == 0) {
                 document.getElementById("demo").innerHTML += "<tr><td>" + colonne1[i] + "</td><td>" + colonne1[i + 1] + "</td></tr>";
