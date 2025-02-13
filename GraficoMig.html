@@ -63,7 +63,7 @@
                 for (let j = 0; j < colonne.length; j++) {
                     colonne[j] = colonne[j].replaceAll('"', '').trim(); // Rimuove virgolette e spazi
                 }
-                
+
                 if (colonne.length === 2) {
                     let anno = parseInt(colonne[0]);
                     let sbarchi = parseInt(colonne[1]);
@@ -86,19 +86,19 @@
             ctx.beginPath();
             ctx.strokeStyle = "blue";
 
+            ctx.moveTo(0,650);
+
             let maxX = Math.max(...xAnni);
             let minX = Math.min(...xAnni);
             let maxY = Math.max(...ySbarchi);
 
             for (let i = 0; i < xAnni.length; i++) {
-                let scaledX = ((xAnni[i] - minX) / (maxX - minX)) * canvas.width;
-                let scaledY = (ySbarchi[i] / maxY) * canvas.height;
+                let scaledX = ((xAnni[i] - minX) / (maxX - minX)) * canvas.width;//anni in posizione 'i' sottratto all'anno più piccolo. 
+                // Divido il risultato con la differenza dagli anni massimi e quelli minimi. Il quozionte lo moltiplico per la larghezza del canvas. Otteniamo la posizione sull'asse delle x
+                let scaledY = (ySbarchi[i] / maxY) * canvas.height;//sbrchi in posizione 'i' diviso per l'altezza massima. il quoziente lo moltiplico per l'altezza del canvas
 
-                if (i === 0) {
-                    ctx.moveTo(scaledX, canvas.height - scaledY);
-                } else {
-                    ctx.lineTo(scaledX, canvas.height - scaledY);
-                }
+                ctx.lineTo(scaledX, canvas.height - scaledY);
+
             }
             ctx.stroke();
         }
