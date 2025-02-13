@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabella e Grafico</title>
+    <style>
+        .table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            border: 3px solid rgb(0, 162, 211);
+        }
+
+        .table th,
+        .table td {
+            border: 2px solid rgb(0, 0, 0);
+            padding: 10px;
+            text-align: center;
+        }
+
+        canvas {
+            border: 1px solid grey;
+            margin-top: 20px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Tabella e Grafico</h1>
+    <input type="file" onchange="leggiFile(this)">
+    <table id="demo" class="table"></table>
+
+    <canvas id="myCanvas" width="1780" height="650"></canvas>
+
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+        ctx.beginPath();
+
+        function leggiFile(input) {
+            let file = input.files[0];
+            let lettoreF = new FileReader();
+            lettoreF.readAsText(file);
+
+            lettoreF.onload = function () {
+                let contenuto = lettoreF.result;
+                creaTab(contenuto);
+            };
+        }
+
+        function creaTab(tab) {
+            var xAnni = [];
+            var ySbarchi = [];
+            let righe = tab.split("\n");
+            let table = document.getElementById("demo");
+            table.innerHTML = ""; // Pulisce la tabella
+
+            for (let i = 0; i < righe.length; i++) {
+                let colonne = righe[i].split(","); // Divide la riga in base alle virgole
+                for (let j = 0; j < colonne.length; j++) {
+                    colonne[j] = colonne[j].replaceAll('"', '').trim(); // Rimuove virgolette e spazi
+                }
+                
+                if (colonne.length === 2) {
+                    let anno = parseInt(colonne[0]);
+                    let sbarchi = parseInt(colonne[1]);
+
+                    if (!isNaN(anno) && !isNaN(sbarchi)) {
+                        xAnni.push(anno);
+                        ySbarchi.push(sbarchi);
+                    }
+
+                    table.innerHTML += "<tr><td>" + colonne[0] + "</td><td>" + colonne[1] + "</td></tr>";
+                }
+
+            }
+
+            grafico(xAnni, ySbarchi);
+        }
+
+        function grafico(xAnni, ySbarchi) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.strokeStyle = "blue";
+
+            let maxX = Math.max(...xAnni);
+            let minX = Math.min(...xAnni);
+            let maxY = Math.max(...ySbarchi);
+
+            for (let i = 0; i < xAnni.length; i++) {
+                let scaledX = ((xAnni[i] - minX) / (maxX - minX)) * canvas.width;
+                let scaledY = (ySbarchi[i] / maxY) * canvas.height;
+
+                if (i === 0) {
+                    ctx.moveTo(scaledX, canvas.height - scaledY);
+                } else {
+                    ctx.lineTo(scaledX, canvas.height - scaledY);
+                }
+            }
+            ctx.stroke();
+        }
+    </script>
+
+
+
+</body>
+
+</html>
