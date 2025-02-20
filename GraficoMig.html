@@ -69,31 +69,31 @@
                     colonne[j] = colonne[j].replaceAll('"', '').trim(); // Rimuove virgolette e spazi
                 }
 
-                if (colonne.length === 2) {
+                if (colonne.length === 2) {//controllo se ci sono esattamente 2 colonne
                     let anno = parseInt(colonne[0]);
                     let sbarchi = parseInt(colonne[1]);
 
-                    if (!isNaN(anno) && !isNaN(sbarchi)) {
-                        xAnni.push(anno);
+                    if (!isNaN(anno) && !isNaN(sbarchi)) {//controllo se i valori sono numeri
+                        xAnni.push(anno);//aggiungo l'anno all'array xAnni
                         ySbarchi.push(sbarchi);
                     }
 
-                    table.innerHTML += "<tr><td>" + colonne[0] + "</td><td>" + colonne[1] + "</td></tr>";
+                    table.innerHTML += "<tr><td>" + colonne[0] + "</td><td>" + colonne[1] + "</td></tr>";//creo riga della tabella
                 }
 
             }
 
-            grafico(xAnni, ySbarchi);
+            grafico(xAnni, ySbarchi);//richiamo la funzione grafico
         }
 
         function grafico(xAnni, ySbarchi) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.beginPath();
-            ctx.strokeStyle = "blue";
+            ctx.clearRect(0, 0, canvas.width, canvas.height);//pulisce il grafico
+            ctx.beginPath();//avvio un disegno
+            ctx.strokeStyle = "blue";// la linea la disegno blu
 
-            ctx.moveTo(0, 650);
+            ctx.moveTo(0, 0);//punto di partenza
 
-            let maxX = Math.max(...xAnni);
+            let maxX = Math.max(...xAnni);//trovo l'anno massimo I puntini serveno per passarre i valori come unici argomenti
             let minX = Math.min(...xAnni);
             let maxY = Math.max(...ySbarchi);
 
@@ -107,10 +107,10 @@
                 // Divido per il massimo numero di sbarchi (maxY) per ottenere un valore tra 0 e 1
                 // Poi moltiplico per l'altezza del canvas per ottenere la posizione giusta sull'asse Y
                 let scaledY = (ySbarchi[i] / maxY) * canvas.height;
-                ctx.lineTo(scaledX, canvas.height - scaledY);
+                ctx.lineTo(scaledX, canvas.height - scaledY);//disegno la linea
 
             }
-            ctx.stroke();
+            ctx.stroke();//disegno la linea finale
         }
     </script>
 
