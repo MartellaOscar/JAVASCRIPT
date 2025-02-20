@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
@@ -31,9 +31,14 @@
 
     <h1>Tabella e Grafico</h1>
     <input type="file" onchange="leggiFile(this)">
-    <table id="demo" class="table"></table>
+    <table id="demo" class="table">
+        <tr>
+            <th>Anno</th>
+            <th>Sbarchi</th>
+        </tr>
+    </table>
 
-    <canvas id="myCanvas" width="1780" height="650"></canvas>
+    <canvas id="myCanvas" width="1720" height="650"></canvas>
 
     <script>
         const canvas = document.getElementById("myCanvas");
@@ -86,17 +91,22 @@
             ctx.beginPath();
             ctx.strokeStyle = "blue";
 
-            ctx.moveTo(0,650);
+            ctx.moveTo(0, 650);
 
             let maxX = Math.max(...xAnni);
             let minX = Math.min(...xAnni);
             let maxY = Math.max(...ySbarchi);
 
             for (let i = 0; i < xAnni.length; i++) {
-                let scaledX = ((xAnni[i] - minX) / (maxX - minX)) * canvas.width;//anni in posizione 'i' sottratto all'anno più piccolo. 
-                // Divido il risultato con la differenza dagli anni massimi e quelli minimi. Il quozionte lo moltiplico per la larghezza del canvas. Otteniamo la posizione sull'asse delle x
-                let scaledY = (ySbarchi[i] / maxY) * canvas.height;//sbrchi in posizione 'i' diviso per l'altezza massima. il quoziente lo moltiplico per l'altezza del canvas
 
+                // Sottraggo l'anno minimo (minX) per iniziare da zero
+                // Poi divido per la differenza tra l'anno massimo e minimo (maxX - minX) per ottenere un valore tra 0 e 1
+                // Infine moltiplico per la larghezza del canvas per ottenere la posizione giusta sull'asse X
+                let scaledX = ((xAnni[i] - minX) / (maxX - minX)) * canvas.width;
+
+                // Divido per il massimo numero di sbarchi (maxY) per ottenere un valore tra 0 e 1
+                // Poi moltiplico per l'altezza del canvas per ottenere la posizione giusta sull'asse Y
+                let scaledY = (ySbarchi[i] / maxY) * canvas.height;
                 ctx.lineTo(scaledX, canvas.height - scaledY);
 
             }
