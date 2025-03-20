@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Object </title>
+</head>
+
+<body>
+    <h1>Array Object</h1>
+    <p><input type="text" id="nome" placeholder="nome..."> </p>
+    <p><input type="text" id="cognome" placeholder="cognome..."> </p>
+    <p><input type="text" id="età" placeholder="età..."> </p>
+    <p><input type="text" id="sesso" placeholder="sesso..."> </p>
+    <button type="button" id="button" onclick="onClick()">AGGIUNGI</button>
+    <script>
+        
+        function onClick() {
+            let nome = document.getElementById('nome').value;
+            let cognome = document.getElementById('cognome').value;
+            
+            let età = document.getElementById('età').value;
+            if(isNaN(età)){
+                alert("inserire un numero");
+                return;
+            }
+            
+            let sesso = document.getElementById('sesso').value;
+            let obj = {nome,cognome,età,sesso};
+            if(sesso.toUpperCase() !="M" && sesso !="F"){
+                alert("inserire M o F");
+                return;
+            }
+            alert("dati salvati");
+            localStorage.setItem('informazioni', JSON.stringify(obj));
+            
+            document.getElementById('nome').value = '';
+            document.getElementById('cognome').value = '';
+            document.getElementById('età').value = '';
+            document.getElementById('sesso').value = '';
+
+            location.href = "ArrayObject2.html";
+        }
+    </script>
+</body>
+
+</html>

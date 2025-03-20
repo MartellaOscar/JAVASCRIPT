@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Object</title>
+</head>
+<style>
+    .table {
+        position: absolute;
+        top: 40px;
+        right: 600px;
+        border-collapse: collapse;
+        border: 3px solid rgb(0, 162, 211);
+    }
+
+    .table th,
+    .table td {
+        border: 2px solid rgb(0, 0, 0);
+        padding: 10px;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <h1>Array Object </h1>
+    <button type="button" id="button" onclick="Ritorna()">RITORNA</button>
+    <table id="demo" class=table>
+        <tr>
+            <th>NOME</th>
+            <th>COGNOME</th>
+            <th>CLASSE</th>
+            <th>SCUOLA</th>
+        </tr>
+    </table>
+    <script>
+
+        const informazioni = localStorage.getItem('informazioni');
+        const array = JSON.parse(informazioni);
+        document.getElementById('demo').innerHTML += "<tr><td>" + array.nome + "</td>" + "<td>" +
+            array.cognome + "</td>" + "<td>" + array.età + "</td>" + "<td>" + array.sesso + "</td></tr>"
+
+        function Ritorna() {
+            location.href = "ArrayObject.html";
+        }
+
+    </script>
+</body>
+
+</html>
